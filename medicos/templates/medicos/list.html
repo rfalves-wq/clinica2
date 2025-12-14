@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Lista de Médicos</h2>
+<a href="{% url 'medicos_add' %}" class="btn btn-success mb-3"><i class="bi bi-plus-circle"></i> Adicionar Médico</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>CRM</th>
+            <th>Especialidade</th>
+            <th>Status</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for medico in medicos %}
+        <tr>
+            <td>{{ medico.nome }}</td>
+            <td>{{ medico.crm }}</td>
+            <td>{{ medico.especialidade }}</td>
+            <td>
+                {% if medico.ativo %}
+                    <span class="badge bg-success">Ativo</span>
+                {% else %}
+                    <span class="badge bg-secondary">Inativo</span>
+                {% endif %}
+            </td>
+            <td>
+                <a href="{% url 'medicos_edit' medico.id %}" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i> Editar</a>
+                <a href="{% url 'medicos_delete' medico.id %}" class="btn btn-danger btn-sm" onclick="return confirm('Deseja realmente excluir?');"><i class="bi bi-trash"></i> Excluir</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Painel de Triagem</h2>
+
+<table class="table table-bordered table-hover">
+    <thead class="table-light">
+        <tr>
+            <th>Paciente</th>
+            <th>CPF</th>
+            <th>Status</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for atendimento in atendimentos %}
+        <tr>
+            <td>{{ atendimento.paciente.nome }}</td>
+            <td>{{ atendimento.paciente.cpf }}</td>
+            <td>
+                {% if atendimento.status == 'AGUARDANDO' %}
+                    <span class="badge bg-warning">Aguardando</span>
+                {% elif atendimento.status == 'EM_TRIAGEM' %}
+                    <span class="badge bg-primary">Em Triagem</span>
+                {% endif %}
+            </td>
+            <td>
+                {% if atendimento.status == 'AGUARDANDO' %}
+                    <a href="{% url 'iniciar_triagem' atendimento.id %}" class="btn btn-sm btn-primary">
+                        Iniciar
+                    </a>
+                {% elif atendimento.status == 'EM_TRIAGEM' %}
+                    <a href="{% url 'finalizar_triagem' atendimento.id %}" class="btn btn-sm btn-success">
+                        Finalizar
+                    </a>
+                {% endif %}
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4">Nenhum paciente aguardando triagem.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

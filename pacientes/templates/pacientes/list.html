@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Lista de Pacientes</h2>
+<a href="{% url 'pacientes_add' %}" class="btn btn-success mb-3"><i class="bi bi-plus-circle"></i> Adicionar Paciente</a>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Idade</th>
+            <th>Cpf</th>
+            <th>Telefone</th>
+            <th>Status</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for paciente in pacientes %}
+        <tr>
+            <td>{{ paciente.nome }}</td>
+            <td>{{ paciente.idade }}</td>
+            <td>{{ paciente.cpf }}</td>
+            <td>{{ paciente.telefone }}</td>
+            <td>
+                {% if paciente.ativo %}
+                    <span class="badge bg-success">Ativo</span>
+                {% else %}
+                    <span class="badge bg-secondary">Inativo</span>
+                {% endif %}
+            </td>
+            <td>
+                <a href="{% url 'pacientes_edit' paciente.id %}" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i> Editar</a>
+                <a href="{% url 'pacientes_delete' paciente.id %}" class="btn btn-danger btn-sm" onclick="return confirm('Deseja realmente excluir?');"><i class="bi bi-trash"></i> Excluir</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

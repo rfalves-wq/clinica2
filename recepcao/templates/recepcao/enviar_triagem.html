@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Enviar para Triagem - {{ paciente.nome }}</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    <div class="mb-3">
+        {{ form.enfermeiro.label_tag }}
+        {{ form.enfermeiro }}
+    </div>
+    <button type="submit" class="btn btn-success">
+        <i class="bi bi-check-circle"></i> Enviar
+    </button>
+    <a href="{% url 'recepcao_busca' %}" class="btn btn-secondary">Voltar</a>
+</form>
+{% endblock %}
