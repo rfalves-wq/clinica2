@@ -2,10 +2,30 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Paciente
 from .forms import PacienteForm
 
+from django.db.models import Q
+
+from django.shortcuts import render
+from .models import Paciente
+
+
 # Listagem
 def pacientes_list(request):
+    query = request.GET.get('q')
+
     pacientes = Paciente.objects.all()
-    return render(request, 'pacientes/list.html', {'pacientes': pacientes})
+
+    if query:
+        pacientes = pacientes.filter(
+            Q(nome__icontains=query) |
+            Q(cpf__icontains=query)
+        )
+
+    context = {
+        'pacientes': pacientes
+    }
+
+    return render(request, 'pacientes/list.html', context)
+
 
 # Adicionar
 def pacientes_add(request):
@@ -45,3 +65,5 @@ def paciente_detail(request, pk):
     return render(request, 'pacientes/paciente_detail.html', {
         'paciente': paciente
     })
+
+
