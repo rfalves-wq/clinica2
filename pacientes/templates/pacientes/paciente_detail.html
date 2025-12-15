@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card shadow">
+    <div class="card-header bg-primary text-white">
+        <h4 class="mb-0">Dados do Paciente</h4>
+    </div>
+
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <p><strong>Nome:</strong> {{ paciente.nome }}</p>
+                <p><strong>Idade:</strong> {{ paciente.idade }}</p>
+                <p><strong>CPF:</strong> {{ paciente.cpf }}</p>
+            </div>
+            <div class="col-md-6">
+                <p><strong>Telefone:</strong> {{ paciente.telefone }}</p>
+                <p><strong>Status:</strong>
+                    {% if paciente.ativo %}
+                        <span class="badge bg-success">Ativo</span>
+                    {% else %}
+                        <span class="badge bg-secondary">Inativo</span>
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+
+        <a href="{% url 'pacientes_list' %}" class="btn btn-secondary mt-3">
+            <i class="bi bi-arrow-left"></i> Voltar
+        </a>
+    </div>
+</div>
+{% endblock %}

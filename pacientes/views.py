@@ -35,3 +35,13 @@ def pacientes_delete(request, id):
     paciente = get_object_or_404(Paciente, id=id)
     paciente.delete()
     return redirect('pacientes_list')
+
+
+from django.shortcuts import render, get_object_or_404
+from .models import Paciente
+
+def paciente_detail(request, pk):
+    paciente = get_object_or_404(Paciente, pk=pk)
+    return render(request, 'pacientes/paciente_detail.html', {
+        'paciente': paciente
+    })
