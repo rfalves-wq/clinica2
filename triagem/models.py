@@ -10,4 +10,4 @@ class Triagem(models.Model):
     finalizada = models.BooleanField(default=False)
 
     def __str__(self):
-        return f'{self.paciente.nome} → {self.enfermeiro.nome}'
+        return f'{self.paciente.nome} - {self.enfermeiro.nome}'
