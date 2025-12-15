@@ -1,86 +1,245 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            height: 100vh;
-            margin: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: url('https://wallpapers.com/images/hd/black-and-white-human-heart-hd-medical-we31xzxdohwrp24b.jpg') no-repeat center center fixed;
-            background-size: cover;
-            font-family: Arial, sans-serif;
-        }
+<meta charset="UTF-8">
+<title>Login</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-        .login-card {
-            max-width: 400px;
-            width: 100%;
-            padding: 2rem;
-            border-radius: 1rem;
-            /* Mais transparente */
-            background-color: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(12px); /* aumenta leve desfoque para contraste */
-            box-shadow: 0 8px 30px rgba(0,0,0,0.4);
-            text-align: center;
-            color: #fff;
-        }
+<style>
+body {
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: 
+        linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)),
+        url('https://wallpapers.com/images/hd/black-and-white-human-heart-hd-medical-we31xzxdohwrp24b.jpg')
+        no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    overflow: hidden;
+}
 
-        .login-logo {
-            width: 80px;
-            height: 80px;
-            object-fit: cover;
-            margin-bottom: 1rem;
-            border-radius: 50%;
-        }
+/* Ondas de sangue suaves */
+.blood-wave {
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    top: -50%;
+    left: -50%;
+    background: rgba(204,0,0,0.08);
+    border-radius: 50%;
+    animation: wave 20s infinite linear alternate;
+    z-index: 0;
+}
+.blood-wave:nth-child(2) { animation-duration: 28s; background: rgba(204,0,0,0.05); }
+.blood-wave:nth-child(3) { animation-duration: 36s; background: rgba(204,0,0,0.03); }
 
-        input.form-control {
-            background-color: rgba(255, 255, 255, 0.15);
-            border: none;
-            color: #fff;
-        }
+@keyframes wave {
+    0% { transform: translate(0,0) scale(1); }
+    50% { transform: translate(100px, 150px) scale(1.05); }
+    100% { transform: translate(-100px, -150px) scale(1); }
+}
 
-        input.form-control::placeholder {
-            color: #f0f0f0;
-        }
+/* Login card */
+.login-card {
+    position: relative;
+    z-index: 10;
+    max-width: 420px;
+    width: 100%;
+    padding: 2.2rem;
+    border-radius: 1.2rem;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(14px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+    text-align: center;
+    color: #fff;
+    border-top: 4px solid #cc0000;
+    animation: fadeIn 0.7s ease;
+    overflow: hidden;
+}
 
-        .btn-primary {
-            background-color: rgba(0, 123, 255, 0.7);
-            border: none;
-        }
+@keyframes fadeIn { from { opacity:0; transform:translateY(25px);} to {opacity:1; transform:translateY(0);} }
 
-        .btn-primary:hover {
-            background-color: rgba(0, 123, 255, 1);
-        }
+.pt-star {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #cc0000;
+    color: #fff;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+}
 
-        .alert {
-            background-color: rgba(255, 0, 0, 0.5);
-            color: #fff;
-            border: none;
-        }
-    </style>
+h3 { font-weight: 600; margin-top: 1rem; }
+.subtitle { font-size: 0.9rem; opacity: 0.85; margin-bottom: 1.5rem; }
+
+.form-control {
+    background-color: rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(255,255,255,0.25);
+    color: #fff;
+    padding: 0.75rem;
+}
+.form-control::placeholder { color: #f1f1f1; }
+.form-control:focus {
+    background-color: rgba(255, 255, 255, 0.22);
+    border-color: #cc0000;
+    box-shadow: 0 0 0 2px rgba(204,0,0,0.35);
+    color: #fff;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #cc0000, #990000);
+    border: none;
+    padding: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.4px;
+}
+.btn-primary:hover { filter: brightness(1.1); }
+
+.alert {
+    background-color: rgba(204,0,0,0.65);
+    border: none;
+    color: #fff;
+}
+
+.password-wrapper { position: relative; margin-bottom: 1.5rem; }
+.password-wrapper span {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #fff;
+    opacity: 0.7;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+.password-wrapper span:hover {
+    transform: translateY(-50%) scale(1.2);
+    opacity: 1;
+}
+
+/* Gotas de sangue */
+.drip {
+    position: absolute;
+    width: 6px;
+    height: 14px;
+    background: rgba(204,0,0,0.9);
+    border-radius: 50%;
+    top: 0;
+    animation: dripFall linear forwards;
+}
+
+@keyframes dripFall {
+    0% { transform: translate(0,0); }
+    40% { transform: translate(var(--x,0px), 30px) rotate(5deg); }
+    70% { transform: translate(var(--x,0px), 60px) rotate(-5deg); }
+    100% { transform: translate(var(--x,0px), 100px) rotate(0deg); }
+}
+
+.drip.slow { animation-duration: 3s; }
+.drip.medium { animation-duration: 2s; }
+.drip.fast { animation-duration: 1.5s; }
+
+/* Respingo em arco */
+.splash {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: rgba(204,0,0,0.9);
+    border-radius: 50%;
+    animation: splashAnim 0.4s forwards;
+}
+
+@keyframes splashAnim {
+    0% { transform: translate(0,0) scale(1); opacity:1; }
+    100% { transform: translate(var(--x,0), var(--y,0)) scale(0.4); opacity:0; }
+}
+
+@media (max-width: 576px) { .login-card { margin:1rem; padding:1.8rem; } }
+</style>
 </head>
 
 <body>
-    <div class="login-card">
-        <!-- Logo -->
-     
+<div class="blood-wave"></div>
+<div class="blood-wave"></div>
+<div class="blood-wave"></div>
 
-        <h3 class="mb-4">Login</h3>
+<div class="login-card">
+    <div class="pt-star" title="Partido dos Trabalhadores">★</div>
 
-        {% for msg in messages %}
-            <div class="alert {{ msg.tags }}">{{ msg }}</div>
-        {% endfor %}
+    <h3>Login</h3>
+    <div class="subtitle">Acesso ao sistema</div>
 
-        <form method="POST">
-            {% csrf_token %}
-            <input class="form-control mb-3" type="text" name="username" placeholder="Usuário">
-            <input class="form-control mb-3" type="password" name="password" placeholder="Senha">
-            <button class="btn btn-primary w-100">Entrar</button>
-        </form>
-    </div>
+    {% for msg in messages %}
+        <div class="alert {{ msg.tags }}">{{ msg }}</div>
+    {% endfor %}
+
+    <form method="POST">
+        {% csrf_token %}
+        <input class="form-control mb-3" type="text" name="username" placeholder="Usuário" required>
+
+        <div class="password-wrapper">
+            <input class="form-control" type="password" name="password" id="password" placeholder="Senha" required>
+            <span id="togglePassword">👁️</span>
+        </div>
+
+        <button class="btn btn-primary w-100">Entrar</button>
+    </form>
+</div>
+
+<script>
+const toggle = document.getElementById('togglePassword');
+const password = document.getElementById('password');
+toggle.addEventListener('click', () => {
+    const type = password.type === 'password' ? 'text' : 'password';
+    password.type = type;
+    toggle.textContent = type === 'password' ? '👁️' : '🙈';
+    toggle.style.transform = "translateY(-50%) scale(1.3)";
+    setTimeout(()=>{ toggle.style.transform = "translateY(-50%) scale(1)"; },150);
+});
+
+// Função para criar gotas e respingos realistas
+const card = document.querySelector('.login-card');
+function createDrip() {
+    let drip = document.createElement('div');
+    drip.classList.add('drip');
+    let speedClasses = ['slow','medium','fast'];
+    drip.classList.add(speedClasses[Math.floor(Math.random()*speedClasses.length)]);
+    drip.style.left = Math.random()*card.offsetWidth + 'px';
+    drip.style.setProperty('--x', (Math.random()*30-15)+'px'); // movimento horizontal irregular
+    card.appendChild(drip);
+
+    // Cria respingos em arco no final
+    const dripDuration = parseFloat(getComputedStyle(drip).animationDuration)*1000;
+    setTimeout(()=>{
+        for(let i=0;i<5;i++){
+            let splash = document.createElement('div');
+            splash.classList.add('splash');
+            let angle = Math.random()*Math.PI - Math.PI/2; // arco superior
+            let radius = 8 + Math.random()*12;
+            splash.style.setProperty('--x', Math.cos(angle)*radius+'px');
+            splash.style.setProperty('--y', Math.sin(angle)*radius+'px');
+            splash.style.left = drip.style.left;
+            splash.style.top = (drip.offsetTop + 100) + 'px';
+            card.appendChild(splash);
+            setTimeout(()=> splash.remove(), 400);
+        }
+        drip.remove();
+    }, dripDuration );
+}
+
+// Cria gotas contínuas
+setInterval(createDrip, 300);
+</script>
 </body>
 </html>

@@ -65,18 +65,6 @@
                                     <i class="bi bi-person-lines-fill"></i> Pacientes
                                 </a>
                             </li>
-<a href="{% url 'recepcao_busca' %}" class="nav-link">
-    <i class="bi bi-clipboard-check"></i> Recepção
-</a>
-
-<a href="{% url 'painel_triagem' %}" class="nav-link">
-    <i class="bi bi-heart-pulse-fill"></i> Triagem
-</a>
-
-
-
-
-
                             <li class="nav-item">
                                 <a href="{% url 'users_list' %}" class="nav-link {% if '/users' in request.path %}active{% endif %}">
                                     <i class="bi bi-people-fill"></i> Usuários
