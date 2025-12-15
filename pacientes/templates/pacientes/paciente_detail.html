@@ -1,33 +1,47 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="card shadow">
-    <div class="card-header bg-primary text-white">
-        <h4 class="mb-0">Dados do Paciente</h4>
-    </div>
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="mb-0">Detalhes do Paciente</h2>
+    <a href="{% url 'pacientes_list' %}" class="btn btn-secondary">
+        <i class="bi bi-arrow-left"></i> Voltar à Lista
+    </a>
+</div>
 
+<div class="card shadow-sm">
+    <div class="card-header bg-info text-white">
+        <h4 class="mb-0">{{ paciente.nome }}</h4>
+    </div>
     <div class="card-body">
-        <div class="row">
+        <div class="row gy-3">
             <div class="col-md-6">
-                <p><strong>Nome:</strong> {{ paciente.nome }}</p>
                 <p><strong>Idade:</strong> {{ paciente.idade }}</p>
                 <p><strong>CPF:</strong> {{ paciente.cpf }}</p>
+                <p><strong>Telefone:</strong> {{ paciente.telefone }}</p>
             </div>
             <div class="col-md-6">
-                <p><strong>Telefone:</strong> {{ paciente.telefone }}</p>
-                <p><strong>Status:</strong>
+                <p>
+                    <strong>Status:</strong>
                     {% if paciente.ativo %}
-                        <span class="badge bg-success">Ativo</span>
+                        <span class="badge bg-success fs-6 px-3 py-2">Ativo</span>
                     {% else %}
-                        <span class="badge bg-secondary">Inativo</span>
+                        <span class="badge bg-secondary fs-6 px-3 py-2">Inativo</span>
                     {% endif %}
                 </p>
+                <!-- Aqui pode adicionar mais campos, ex: endereço, email, etc -->
             </div>
         </div>
 
-        <a href="{% url 'pacientes_list' %}" class="btn btn-secondary mt-3">
-            <i class="bi bi-arrow-left"></i> Voltar
-        </a>
+        <div class="mt-4">
+            <a href="{% url 'pacientes_edit' paciente.id %}" class="btn btn-primary me-2">
+                <i class="bi bi-pencil-square"></i> Editar
+            </a>
+            <a href="{% url 'pacientes_delete' paciente.id %}" 
+               class="btn btn-danger"
+               onclick="return confirm('Deseja realmente excluir este paciente?');">
+                <i class="bi bi-trash"></i> Excluir
+            </a>
+        </div>
     </div>
 </div>
 {% endblock %}
