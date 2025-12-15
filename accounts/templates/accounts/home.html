@@ -56,6 +56,14 @@
                     <a class="nav-link dropdown-toggle" data-bs-toggle="collapse" href="#cadastrosDropdown" role="button" aria-expanded="false" aria-controls="cadastrosDropdown">
                         <i class="bi bi-journal-medical"></i> Cadastros
                     </a>
+
+                    <a href="{% url 'recepcao_busca' %}" class="nav-link">
+    <i class="bi bi-clipboard-check"></i> Recepção
+</a>
+
+<a href="{% url 'painel_triagem' %}" class="nav-link">
+    <i class="bi bi-heart-pulse-fill"></i> Triagem
+</a>
                     <div class="collapse" id="cadastrosDropdown">
                         <ul class="nav flex-column ms-3">
                             <li><a href="{% url 'medicos_list' %}" class="nav-link {% if request.path == '/medicos/' %}active{% endif %}"><i class="bi bi-person-badge"></i> Médicos</a></li>
