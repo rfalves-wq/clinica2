@@ -1,15 +1,36 @@
-<h1>Painel de Triagem</h1>
+{% extends 'base.html' %}
+{% block content %}
 
-{% if triagens %}
-    <ul>
+<h3>Painel de Triagem</h3>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Paciente</th>
+            <th>Classificação</th>
+            <th>Enfermeiro</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
         {% for triagem in triagens %}
-            <li>
-                Paciente: {{ triagem.paciente.nome }} <br>
-                Criada em: {{ triagem.criada_em }}
-            </li>
-            <hr>
+        <tr>
+            <td>{{ triagem.paciente.nome }}</td>
+            <td>{{ triagem.get_classificacao_display }}</td>
+            <td>{{ triagem.enfermeiro.nome }}</td>
+            <td>
+                <a href="{% url 'enviar_medico' triagem.id %}"
+                   class="btn btn-success btn-sm">
+                    Enviar para Médico
+                </a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4">Nenhuma triagem pendente.</td>
+        </tr>
         {% endfor %}
-    </ul>
-{% else %}
-    <p>Nenhum paciente aguardando triagem.</p>
-{% endif %}
+    </tbody>
+</table>
+
+{% endblock %}
